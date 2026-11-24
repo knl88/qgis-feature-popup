@@ -1,0 +1,16 @@
+[general]
+name=Feature Popup
+qgisMinimumVersion=3.28
+qgisMaximumVersion=4.99
+supportsQt6=yes
+description=Fast, modern feature info popup when clicking features on the map.
+about=Click a feature to get a clean, card-based popup with its attributes (inspired by TerriaJS feature info). Collapsible cards per feature, attribute filter, zoom/form/copy actions, image previews, raster values, and click-drag panning while the tool is active.
+version=0.1.0
+author=Kim Leirvik
+email=
+tracker=
+repository=
+category=Web
+icon=icon.svg
+experimental=False
+tags=identify,popup,feature info,attributes
