@@ -4,7 +4,7 @@ QGIS plugin (3.28+ and 4.x): click a feature to get a modern, card-based attribu
 
 ## Install
 
-**From a ZIP:** run `zip -r feature_popup.zip feature_popup -x '*__pycache__*'`, then in QGIS open *Plugins → Manage and Install Plugins → Install from ZIP*.
+**From a ZIP:** download [feature_popup.zip](https://github.com/knl88/qgis-feature-popup/releases/latest/download/feature_popup.zip) (latest release), then in QGIS open *Plugins → Manage and Install Plugins → Install from ZIP*.
 
 **For development:** link the folder into your profile's plugins directory:
 
@@ -30,3 +30,13 @@ Turn on the tool with the toolbar button or *Web → Feature Popup*.
 | Ctrl+F | Filters attributes |
 
 Settings: *Web → Feature Popup → Settings…*
+
+## Release
+
+Bump `version=` in `feature_popup/metadata.txt`, commit, then push a matching tag:
+
+```bash
+git tag v0.2.0 && git push origin v0.2.0
+```
+
+GitHub Actions builds `feature_popup.zip` and attaches it to a new release.

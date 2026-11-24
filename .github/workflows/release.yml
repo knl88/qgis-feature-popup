@@ -1,0 +1,30 @@
+name: Release
+
+on:
+  push:
+    tags: ["v*"]
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+
+      - name: Check tag matches metadata.txt version
+        run: |
+          version=$(sed -n 's/^version=//p' feature_popup/metadata.txt)
+          if [ "v$version" != "$GITHUB_REF_NAME" ]; then
+            echo "::error::metadata.txt version ($version) does not match tag ($GITHUB_REF_NAME)"
+            exit 1
+          fi
+
+      - name: Build zip
+        run: zip -r feature_popup.zip feature_popup -x '*__pycache__*'
+
+      - name: Publish release
+        run: gh release create "$GITHUB_REF_NAME" feature_popup.zip --title "$GITHUB_REF_NAME" --generate-notes
+        env:
+          GH_TOKEN: ${{ github.token }}
