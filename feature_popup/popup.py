@@ -742,7 +742,6 @@ class FeaturePopup(QWidget):
         self.show()
         self.raise_()
         self.relayout()
-        self.setFocus(Qt.FocusReason.OtherFocusReason)
 
     def close_popup(self):
         if not self.isVisible():

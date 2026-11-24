@@ -5,7 +5,11 @@ from qgis.PyQt.QtWidgets import QApplication
 
 
 class FeatureInfoTool(QgsMapTool):
-    """Click to identify, click-drag to pan (like a web map)."""
+    """Click to identify, click-drag to pan (like a web map).
+
+    Deliberately has no keyPressEvent: overriding it stops the canvas from handling
+    arrow-key panning and PgUp/PgDn zooming. Esc is handled via QgsMapCanvas.keyPressed.
+    """
 
     clicked = pyqtSignal(object, object)  # map point (canvas CRS), pixel QPoint
     dismissed = pyqtSignal()
@@ -45,13 +49,6 @@ class FeatureInfoTool(QgsMapTool):
             self.clicked.emit(e.mapPoint(), e.pixelPoint())
         self._press = None
         self._dragging = False
-
-    def keyPressEvent(self, e):
-        if e.key() == Qt.Key.Key_Escape:
-            self.dismissed.emit()
-            e.accept()
-        else:
-            e.ignore()
 
     def deactivate(self):
         self._press = None

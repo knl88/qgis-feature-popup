@@ -24,6 +24,7 @@ Turn on the tool with the toolbar button or *Web → Feature Popup*.
 |---|---|
 | Click on the map | Shows the features at that point |
 | Drag on the map | Pans the map |
+| Scroll, middle-drag, arrow keys, PgUp/PgDn | Zoom and pan as usual |
 | Esc / right-click | Closes the popup |
 | Drag the header / corner | Moves / resizes the popup |
 | Double-click the header | Docks the popup again |

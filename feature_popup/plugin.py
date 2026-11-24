@@ -2,6 +2,7 @@ import os
 import time
 
 from qgis.core import QgsProject
+from qgis.PyQt.QtCore import Qt
 from qgis.PyQt.QtGui import QIcon
 
 try:
@@ -48,10 +49,12 @@ class FeaturePopupPlugin:
         self.tool.dismissed.connect(self._close_popup)
 
         self.popup = FeaturePopup(self.canvas, self.iface, self.settings)
+        self.canvas.keyPressed.connect(self._on_canvas_key)
         QgsProject.instance().layersWillBeRemoved.connect(self.popup.on_layers_removed)
         QgsProject.instance().cleared.connect(self.popup.close_popup)
 
     def unload(self):
+        self.canvas.keyPressed.disconnect(self._on_canvas_key)
         project = QgsProject.instance()
         try:
             project.layersWillBeRemoved.disconnect(self.popup.on_layers_removed)
@@ -73,6 +76,10 @@ class FeaturePopupPlugin:
     def show_settings(self):
         if SettingsDialog(self.settings, self.iface.mainWindow()).exec():
             self.popup.relayout()
+
+    def _on_canvas_key(self, event):
+        if event.key() == Qt.Key.Key_Escape and self.canvas.mapTool() is self.tool:
+            self._close_popup()
 
     def _close_popup(self):
         if self.popup is not None:
